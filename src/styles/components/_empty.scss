@@ -1,0 +1,20 @@
+.empty {
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  color: var(--muted);
+}
+
+.empty--compact {
+  padding: 12px;
+}
+
+.empty__title {
+  font-weight: 800;
+  color: rgba(231, 238, 252, 0.8);
+  margin-bottom: 4px;
+}
+
+.empty__text {
+  font-size: 12px;
+}

@@ -1,0 +1,33 @@
+.panel {
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel2) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel__title {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+.panel__meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.panel--sticky {
+  position: sticky;
+  top: 14px;
+  align-self: start;
+}
