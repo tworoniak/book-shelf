@@ -10,13 +10,17 @@
   --radius2: 12px;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family:
     ui-sans-serif,
     system-ui,
     -apple-system,
     Segoe UI,
-    Roboto,
+    Rubik,
     Helvetica,
     Arial,
     'Apple Color Emoji',
@@ -27,4 +31,39 @@ body {
     var(--bg) 60%
   );
   color: var(--text);
+}
+
+body {
+  // font-family: $font-main;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+strong {
+  font-weight: 600;
 }
