@@ -41,6 +41,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     'CDN-Cache-Control',
     'public, s-maxage=86400, stale-while-revalidate=604800',
   );
+  res.setHeader('x-books-api-version', '1');
 
   return res.status(200).json(toBook(item));
 }
