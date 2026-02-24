@@ -82,6 +82,12 @@ src/
       Input.tsx
       Spinner.tsx
 
+  context/
+    ShelvesContext.ts
+    ShelvesProvider.tsx
+    shelvesStore.ts
+    useShelves.ts
+
   hooks/
     useBookDetails.ts
     useBookSearch.ts
