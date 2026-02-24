@@ -45,12 +45,12 @@ export function toBook(item: GoogleVolumeItem): Book {
     authors: v.authors ?? [],
     publishedDate: v.publishedDate,
     description: v.description,
-    pageCount: v.pageCount,
+    pageCount: v.pageCount && v.pageCount > 0 ? v.pageCount : undefined,
     categories: v.categories,
     thumbnail: thumb,
     language: v.language,
-    previewLink: v.previewLink,
-    infoLink: v.infoLink,
+    previewLink: httpsify(v.previewLink),
+    infoLink: httpsify(v.infoLink),
     isbn13: pickIsbn13(v.industryIdentifiers),
   };
 }
