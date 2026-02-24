@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { toBook, type GoogleVolumeItem } from './normalize'; // (see note below)
+import { toBook, type GoogleVolumeItem } from './normalize.js';
 
 const GOOGLE_BOOKS_API = 'https://www.googleapis.com/books/v1/volumes';
 
