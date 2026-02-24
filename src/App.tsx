@@ -10,7 +10,7 @@ type LocationState = {
 
 export default function App() {
   const location = useLocation();
-  const state = location.state as LocationState | null;
+  const state = location.state as LocationState | undefined;
   const backgroundLocation = state?.backgroundLocation;
 
   return (
