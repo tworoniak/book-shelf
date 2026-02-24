@@ -63,3 +63,26 @@ export async function searchBooks(params: SearchParams, signal?: AbortSignal) {
     items: (data.items ?? []).map(toBook),
   };
 }
+
+type VolumeItem = NonNullable<GoogleBooksVolumesResponse['items']>[number];
+
+export async function getBookById(
+  id: string,
+  signal?: AbortSignal,
+): Promise<Book> {
+  const key = import.meta.env.VITE_GOOGLE_BOOKS_KEY as string | undefined;
+
+  const url = new URL(`${API}/${id}`);
+  url.searchParams.set(
+    'fields',
+    'id,volumeInfo(title,authors,publishedDate,description,pageCount,categories,language,previewLink,infoLink,industryIdentifiers,imageLinks)',
+  );
+  if (key) url.searchParams.set('key', key);
+
+  const res = await fetch(url.toString(), { signal });
+  if (!res.ok) throw new Error(`Google Books error: ${res.status}`);
+
+  // /volumes/:id returns a single item, not {items:[]}
+  const item = (await res.json()) as VolumeItem;
+  return toBook(item);
+}

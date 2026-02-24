@@ -7,6 +7,7 @@ type Props = {
   onAdd: (book: Book, shelf: ShelfKey) => void;
   onRemove: (id: string) => void;
   getShelfFor: (id: string) => ShelfKey | null;
+  onSelect: (id: string) => void;
 };
 
 export default function BookGrid({
@@ -14,6 +15,7 @@ export default function BookGrid({
   onAdd,
   onRemove,
   getShelfFor,
+  onSelect,
 }: Props) {
   if (!books.length) {
     return (
@@ -35,6 +37,7 @@ export default function BookGrid({
           shelf={getShelfFor(b.id)}
           onAdd={onAdd}
           onRemove={onRemove}
+          onSelect={onSelect}
         />
       ))}
     </div>

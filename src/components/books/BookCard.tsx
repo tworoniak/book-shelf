@@ -6,6 +6,7 @@ type Props = {
   shelf: ShelfKey | null;
   onAdd: (book: Book, shelf: ShelfKey) => void;
   onRemove: (id: string) => void;
+  onSelect: (id: string) => void;
 };
 
 const shelfLabel: Record<ShelfKey, string> = {
@@ -14,7 +15,13 @@ const shelfLabel: Record<ShelfKey, string> = {
   read: 'Read',
 };
 
-export default function BookCard({ book, shelf, onAdd, onRemove }: Props) {
+export default function BookCard({
+  book,
+  shelf,
+  onAdd,
+  onRemove,
+  onSelect,
+}: Props) {
   return (
     <article className='card'>
       <div className='card__cover'>
@@ -29,7 +36,9 @@ export default function BookCard({ book, shelf, onAdd, onRemove }: Props) {
 
       <div className='card__body'>
         <div className='card__title' title={book.title}>
-          {book.title}
+          <button className='link' onClick={() => onSelect(book.id)}>
+            {book.title}
+          </button>
         </div>
 
         <div className='card__authors' title={book.authors.join(', ')}>
@@ -42,6 +51,9 @@ export default function BookCard({ book, shelf, onAdd, onRemove }: Props) {
         </div>
 
         <div className='card__actions'>
+          <button className='btn btn--small' onClick={() => onSelect(book.id)}>
+            Details
+          </button>
           <button
             className='btn btn--small'
             onClick={() => onAdd(book, 'want')}
@@ -60,12 +72,10 @@ export default function BookCard({ book, shelf, onAdd, onRemove }: Props) {
           >
             Read
           </button>
-
           {shelf && (
             <button
               className='btn btn--small btn--danger'
               onClick={() => onRemove(book.id)}
-              title='Remove from shelves'
             >
               Remove
             </button>
