@@ -62,6 +62,8 @@ GOOGLE_BOOKS_KEY=your_key_here
 
 ---
 
+## 🏗 Architecture
+
 ```code
 Client (Vite / React)
         │
@@ -71,6 +73,10 @@ Client (Vite / React)
         ▼
 Google Books API
 ```
+
+---
+
+## 📂 Project Structure
 
 ```txt
 api/
