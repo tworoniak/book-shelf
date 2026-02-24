@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Book } from '../types/book';
-import { getBookById } from '../api/googleBooks';
+import { getBookById } from '../services/googleBooks';
 
 function getErrorMessage(err: unknown): string {
   if (err instanceof Error) return err.message;

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Book } from '../types/book';
-import { searchBooks } from '../api/googleBooks';
+import { searchBooks } from '../services/googleBooks';
 import { useDebounce } from './useDebounce';
 
 const PAGE_SIZE = 20;
@@ -9,6 +9,13 @@ function getErrorMessage(err: unknown): string {
   if (err instanceof Error) return err.message;
   if (typeof err === 'string') return err;
   return 'Something went wrong';
+}
+
+function isAbortError(err: unknown) {
+  return (
+    (err instanceof DOMException && err.name === 'AbortError') ||
+    (err instanceof Error && err.name === 'AbortError')
+  );
 }
 
 export function useBookSearch(query: string) {
@@ -22,16 +29,25 @@ export function useBookSearch(query: string) {
 
   const pageSize = useMemo(() => PAGE_SIZE, []);
 
+  // NEW: abort in-flight requests (pagination + new searches)
+  const inFlight = useRef<AbortController | null>(null);
+
   useEffect(() => {
     if (!q) {
+      inFlight.current?.abort();
+      inFlight.current = null;
+
       setBooks([]);
       setTotal(0);
       setStartIndex(0);
       setError(null);
+      setIsLoading(false);
       return;
     }
 
+    inFlight.current?.abort();
     const controller = new AbortController();
+    inFlight.current = controller;
 
     (async () => {
       try {
@@ -47,20 +63,27 @@ export function useBookSearch(query: string) {
         setTotal(data.total);
         setStartIndex(0);
       } catch (err: unknown) {
-        if (err instanceof DOMException && err.name === 'AbortError') return;
+        if (isAbortError(err)) return;
         setError(getErrorMessage(err));
       } finally {
-        setIsLoading(false);
+        // only clear loading if this is the latest request
+        if (inFlight.current === controller) setIsLoading(false);
       }
     })();
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+      if (inFlight.current === controller) inFlight.current = null;
+    };
   }, [q]);
 
   async function goTo(index: number) {
     if (!q) return;
 
+    inFlight.current?.abort();
     const controller = new AbortController();
+    inFlight.current = controller;
+
     try {
       setIsLoading(true);
       setError(null);
@@ -72,10 +95,13 @@ export function useBookSearch(query: string) {
 
       setBooks(data.items);
       setStartIndex(index);
+      // (optional) keep total fresh in case API differs by page
+      setTotal(data.total);
     } catch (err: unknown) {
+      if (isAbortError(err)) return;
       setError(getErrorMessage(err));
     } finally {
-      setIsLoading(false);
+      if (inFlight.current === controller) setIsLoading(false);
     }
   }
 
