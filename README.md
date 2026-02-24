@@ -1,6 +1,6 @@
 # React + TypeScript + Vite + Sass
 
-# 📚 Book Shelf v1.0
+# 📚 Book Shelf v2.0
 
 A modern React + TypeScript + Vite + Sass application that searches the Google Books API and lets you organize books into personal shelves:
 
@@ -9,6 +9,8 @@ A modern React + TypeScript + Vite + Sass application that searches the Google B
 - ✔ Read
 
 All shelves persist locally using localStorage.
+
+Now powered by a serverless API layer to securely proxy and normalize Google Books responses.
 
 ---
 
@@ -20,8 +22,10 @@ All shelves persist locally using localStorage.
 - 💾 Persistent shelves (localStorage)
 - ⏭ Pagination (Prev / Next)
 - 🎨 Modular Sass architecture
+- 🔒 Google API key secured server-side
+- 🧩 Normalized API contract ({ total, items })
 - ⚡ Fast Vite development environment
-- 🔒 API key secured via referrer restrictions
+- ☁ Deployed on Vercel
 
 ---
 
@@ -31,36 +35,46 @@ All shelves persist locally using localStorage.
 - TypeScript
 - Vite
 - Sass (SCSS modules structure)
+- Vercel Serverless Functions
 - Google Books REST API
 
 ---
 
 ## 📌 Future Enhancements
 
-- 🔍 Infinite scroll
 - ⭐ Ratings & notes per book
 - 📤 Export / Import shelves
 - 📊 Shelf sorting & filtering
-- 🧾 Detailed book modal
-- 🔄 Deduplicate by ISBN-13
+- 🔍 Infinite scroll
 - 🧪 Unit tests (Vitest)
 - 📱 Responsive mobile optimization
-- ☁ Move API calls to Vercel Edge Function
+- 📊 Rate limiting + observability
+- 🌍 Edge runtime optimization
 
 ---
 
 ```code
 .env.local
 
-VITE_GOOGLE_BOOKS_KEY=your_key_here
+GOOGLE_BOOKS_KEY=your_key_here
 
 ```
 
 ---
 
+```code
+Client (Vite / React)
+        │
+        ▼
+/api/books  →  Vercel Serverless Function
+        │
+        ▼
+Google Books API
+```
+
 ```txt
 api/
-  _normalize.ts
+  normalize.ts
   book.ts
   books.ts
   ping.ts
