@@ -4,11 +4,13 @@ import BookGrid from './components/books/BookGrid';
 import ShelvesTabs from './components/books/ShelvesTabs';
 import { useBookSearch } from './hooks/useBookSearch';
 import { useShelves } from './hooks/useShelves';
+import BookDetailsModal from './components/books/BookDetailsModal';
 
 export default function App() {
   const [query, setQuery] = useState('');
   const search = useBookSearch(query);
   const shelves = useShelves();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   return (
     <div className='app'>
@@ -48,6 +50,7 @@ export default function App() {
             onAdd={(book, shelf) => shelves.add(book, shelf)}
             onRemove={(id) => shelves.remove(id)}
             getShelfFor={(id) => shelves.getShelfFor(id)}
+            onSelect={(id) => setSelectedId(id)}
           />
 
           {query.trim() && search.total > 0 && (
@@ -104,6 +107,14 @@ export default function App() {
             onMove={(id, shelf) => shelves.move(id, shelf)}
           />
         </aside>
+
+        <BookDetailsModal
+          bookId={selectedId}
+          shelf={selectedId ? shelves.getShelfFor(selectedId) : null}
+          onClose={() => setSelectedId(null)}
+          onAdd={(book, shelf) => shelves.add(book, shelf)}
+          onRemove={(id) => shelves.remove(id)}
+        />
       </main>
     </div>
   );
