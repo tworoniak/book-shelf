@@ -67,12 +67,11 @@ src/
   components/
     books/
       BookCard.tsx
-      BookDetails.tsx
       BookDetailsModal.tsx
+      BookDetailsRouteModal.tsx
       BookGrid.tsx
       BookSearchBar.tsx
       ShelfList.tsx
-      Shelves.tsx
       ShelvesTabs.tsx
     layout/
       AppLayout.tsx
@@ -90,6 +89,10 @@ src/
     useLocalStorageState.ts
     useShelves.ts
 
+  pages/
+    BookDetailsPage.tsx
+    HomePage.tsx
+
   styles/
     abstracts/
       _mixins.scss
@@ -101,6 +104,7 @@ src/
       _book-card.scss
       _card.scss
       _controls.scss
+      _detailsPage.scss
       _empty.scss
       _grid.scss
       _modal.scss

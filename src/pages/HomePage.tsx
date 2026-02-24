@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 import BookSearchBar from '../components/books/BookSearchBar';
 import BookGrid from '../components/books/BookGrid';
 import ShelvesTabs from '../components/books/ShelvesTabs';
+import AppLayout from '../components/layout/AppLayout';
+import Header from '../components/layout/Header';
+
 import { useBookSearch } from '../hooks/useBookSearch';
 import { useShelves } from '../hooks/useShelves';
 
@@ -15,18 +19,11 @@ export default function HomePage() {
   const location = useLocation();
 
   return (
-    <div className='app'>
-      <header className='app__header'>
-        <div className='app__brand'>
-          <div className='app__title'>Book Shelf</div>
-          <div className='app__subtitle'>
-            Google Books search + your shelves
-          </div>
-        </div>
-
-        <BookSearchBar value={query} onChange={setQuery} />
-      </header>
-
+    <AppLayout
+      header={
+        <Header right={<BookSearchBar value={query} onChange={setQuery} />} />
+      }
+    >
       <main className='app__main'>
         <section className='panel'>
           <div className='panel__header'>
@@ -114,6 +111,6 @@ export default function HomePage() {
           />
         </aside>
       </main>
-    </div>
+    </AppLayout>
   );
 }
