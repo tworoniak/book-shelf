@@ -68,6 +68,7 @@ src/
     books/
       BookCard.tsx
       BookDetails.tsx
+      BookDetailsModal.tsx
       BookGrid.tsx
       BookSearchBar.tsx
       ShelfList.tsx
@@ -83,6 +84,7 @@ src/
       Spinner.tsx
 
   hooks/
+    useBookDetails.ts
     useBookSearch.ts
     useDebounce.ts
     useLocalStorageState.ts
@@ -101,6 +103,7 @@ src/
       _controls.scss
       _empty.scss
       _grid.scss
+      _modal.scss
       _panel.scss
       _search.scss
       _shelf.scss
