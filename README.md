@@ -59,11 +59,13 @@ VITE_GOOGLE_BOOKS_KEY=your_key_here
 ---
 
 ```txt
-src/
-  api/
-    googleBooks.ts
-    schemas.ts
+api/
+  _normalize.ts
+  book.ts
+  books.ts
+  ping.ts
 
+src/
   components/
     books/
       BookCard.tsx
@@ -98,6 +100,10 @@ src/
   pages/
     BookDetailsPage.tsx
     HomePage.tsx
+
+  services/
+    googleBooks.ts
+    schemas.ts
 
   styles/
     abstracts/
